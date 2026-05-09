@@ -68,5 +68,5 @@
 
 ### ۱. Clone کردن پروژه
 ```bash
-git clone https://github.com/YOUR_USERNAME/room-booking-nodejs-redis.git
+git clone https://github.com/AmirMohammad-Rezaei/room-booking-nodejs-redis.git
 cd room-booking-nodejs-redis
