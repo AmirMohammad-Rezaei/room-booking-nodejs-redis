@@ -1,0 +1,21 @@
+# وابستگی‌های Node.js
+node_modules/
+
+# فایل‌های محیطی (حاوی اطلاعات محرمانه)
+.env
+
+# فایل‌های لاگ
+logs/
+*.log
+
+# فایل‌های سیستمی ویندوز
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# فایل‌های سیستمی مک
+.DS_Store
+
+# پوشه‌ی dist یا build (اگر در آینده اضافه کنید)
+dist/
+build/

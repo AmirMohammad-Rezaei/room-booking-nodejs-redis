@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # سرویس برنامه Node.js
+  app:
+    build: .                     # از Dockerfile همین پوشه build کن
+    container_name: room-app
+    ports:
+      - "3000:3000"              # پورت ۳۰۰۰ سیستم خودتان را به پورت ۳۰۰۰ container وصل کن
+    env_file:
+      - .env                     # متغیرهای .env را بخوان (ولی چندتا را override می‌کنیم)
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/room_reservation   # نام سرویس mongo بعنوان host
+      - REDIS_URL=redis://redis:6379                      # نام سرویس redis بعنوان host
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - room-net
+
+  # سرویس MongoDB
+  mongo:
+    image: mongo:7               # از Image رسمی MongoDB نسخه 7
+    container_name: room-mongo
+    ports:
+      - "27017:27017"            # این خط اختیاری است؛ برای دسترسی از بیرون با MongoDB Compass
+    volumes:
+      - mongo-data:/data/db      # با این کار داده‌ها با حذف container از بین نمی‌رود
+    networks:
+      - room-net
+
+  # سرویس Redis
+  redis:
+    image: redis:7-alpine        # Image سبک Redis
+    container_name: room-redis
+    ports:
+      - "6379:6379"              # برای دسترسی مستقیم اگر خواستید
+    networks:
+      - room-net
+
+# تعریف volume برای ذخیره دائمی داده‌های MongoDB
+volumes:
+  mongo-data:
+
+# شبکه‌ای که containerها بتوانند با اسم همدیگر را پیدا کنند
+networks:
+  room-net:
+    driver: bridge
